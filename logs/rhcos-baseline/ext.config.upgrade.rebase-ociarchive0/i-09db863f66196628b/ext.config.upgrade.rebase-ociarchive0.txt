@@ -1,0 +1,228 @@
+May 29 20:32:15 ip-172-31-16-235 kola-runext-test.sh[2338]: + . /var/opt/kola/extdata/commonlib.sh
+May 29 20:32:15 ip-172-31-16-235 kola-runext-test.sh[2338]: ++ IFS=' '
+May 29 20:32:15 ip-172-31-16-235 kola-runext-test.sh[2338]: ++ read -r -a cmdline
+May 29 20:32:15 ip-172-31-16-235 kola-runext-test.sh[2338]: + case "${AUTOPKGTEST_REBOOT_MARK:-}" in
+May 29 20:32:15 ip-172-31-16-235 kola-runext-test.sh[2341]: + rpm-ostree status --json
+May 29 20:32:15 ip-172-31-16-235 kola-runext-test.sh[2342]: + jq -r '.deployments[0].version'
+May 29 20:32:15 ip-172-31-16-235 kola-runext-test.sh[2353]: ++ cat /srv/pre-rebase-version
+May 29 20:32:15 ip-172-31-16-235 kola-runext-test.sh[2338]: + ok 'Starting version: 9.6.20251015-1'
+May 29 20:32:15 ip-172-31-16-235 kola-runext-test.sh[2338]: + echo ok 'Starting version: 9.6.20251015-1'
+May 29 20:32:15 ip-172-31-16-235 kola-runext-test.sh[2338]: ok Starting version: 9.6.20251015-1
+May 29 20:32:15 ip-172-31-16-235 kola-runext-test.sh[2338]: + '[' -f /etc/ostree-fsync-false ']'
+May 29 20:32:15 ip-172-31-16-235 kola-runext-test.sh[2338]: + echo 'Downloading RHCOS oci-archive...'
+May 29 20:32:15 ip-172-31-16-235 kola-runext-test.sh[2338]: Downloading RHCOS oci-archive...
+May 29 20:32:15 ip-172-31-16-235 kola-runext-test.sh[2338]: + curl -L --retry 3 -o /srv/fcos-stable.ociarchive https://dustymabe.fedorapeople.org/rhcos-9.6.20260401-0-ostree.x86_64.ociarchive
+May 29 20:32:15 ip-172-31-16-235 kola-runext-test.sh[2354]:   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+May 29 20:32:15 ip-172-31-16-235 kola-runext-test.sh[2354]:                                  Dload  Upload   Total   Spent    Left  Speed
+May 29 20:33:13 ip-172-31-16-235 kola-runext-test.sh[2354]: [4.5K blob data]
+May 29 20:33:13 ip-172-31-16-235 kola-runext-test.sh[2338]: real        0m57.532s
+May 29 20:33:13 ip-172-31-16-235 kola-runext-test.sh[2338]: user        0m0.547s
+May 29 20:33:13 ip-172-31-16-235 kola-runext-test.sh[2338]: sys        0m1.156s
+May 29 20:33:13 ip-172-31-16-235 kola-runext-test.sh[2338]: + ok 'oci-archive download completed'
+May 29 20:33:13 ip-172-31-16-235 kola-runext-test.sh[2338]: + echo ok 'oci-archive download completed'
+May 29 20:33:13 ip-172-31-16-235 kola-runext-test.sh[2338]: ok oci-archive download completed
+May 29 20:33:13 ip-172-31-16-235 kola-runext-test.sh[2338]: + echo 'Rebasing to oci-archive...'
+May 29 20:33:13 ip-172-31-16-235 kola-runext-test.sh[2338]: Rebasing to oci-archive...
+May 29 20:33:13 ip-172-31-16-235 kola-runext-test.sh[2338]: + sudo rpm-ostree rebase ostree-unverified-image:oci-archive:/srv/fcos-stable.ociarchive
+May 29 20:33:13 ip-172-31-16-235 kola-runext-test.sh[2392]: Pulling manifest: ostree-unverified-image:oci-archive:/srv/fcos-stable.ociarchive
+May 29 20:33:18 ip-172-31-16-235 kola-runext-test.sh[2392]: Importing: ostree-unverified-image:oci-archive:/srv/fcos-stable.ociarchive (digest: sha256:f95be9e48c80e1091882ca94e774f5f6eedd0181debf103843177752448c5faf)
+May 29 20:33:18 ip-172-31-16-235 kola-runext-test.sh[2392]: ostree chunk layers already present: 1
+May 29 20:33:18 ip-172-31-16-235 kola-runext-test.sh[2392]: ostree chunk layers needed: 50 (1.3 GB)
+May 29 20:33:29 ip-172-31-16-235 kola-runext-test.sh[2392]: [0/50] Fetching ostree chunk 831efff14d286f00357 (623.0 MB)...done
+May 29 20:33:29 ip-172-31-16-235 kola-runext-test.sh[2392]: [1/50] Fetching ostree chunk 6673cf8aa87197bc9af (29.7 MB)...done
+May 29 20:33:29 ip-172-31-16-235 kola-runext-test.sh[2392]: [2/50] Fetching ostree chunk e775b9341152bb927b9 (30.4 MB)...done
+May 29 20:33:30 ip-172-31-16-235 kola-runext-test.sh[2392]: [3/50] Fetching ostree chunk bf76d38d3e505c3edde (22.3 MB)...done
+May 29 20:33:30 ip-172-31-16-235 kola-runext-test.sh[2392]: [4/50] Fetching ostree chunk df571fc0197db0fdad4 (14.0 MB)...done
+May 29 20:33:30 ip-172-31-16-235 kola-runext-test.sh[2392]: [5/50] Fetching ostree chunk 6ded804ed82120fcbcf (38.2 MB)...done
+May 29 20:33:30 ip-172-31-16-235 kola-runext-test.sh[2392]: [6/50] Fetching ostree chunk 606c57fad0ed1184709 (14.1 MB)...done
+May 29 20:33:30 ip-172-31-16-235 kola-runext-test.sh[2392]: [7/50] Fetching ostree chunk 52d7b996aaaeb7ce9f7 (13.1 MB)...done
+May 29 20:33:31 ip-172-31-16-235 kola-runext-test.sh[2392]: [8/50] Fetching ostree chunk de11ac6872f1446d829 (30.3 MB)...done
+May 29 20:33:31 ip-172-31-16-235 kola-runext-test.sh[2392]: [9/50] Fetching ostree chunk 2fd3d9cd61c027be52b (12.1 MB)...done
+May 29 20:33:31 ip-172-31-16-235 kola-runext-test.sh[2392]: [10/50] Fetching ostree chunk ca383ed6a50d68ec7ec (11.4 MB)...done
+May 29 20:33:31 ip-172-31-16-235 kola-runext-test.sh[2392]: [11/50] Fetching ostree chunk 0c6725d769f9194de63 (16.6 MB)...done
+May 29 20:33:31 ip-172-31-16-235 kola-runext-test.sh[2392]: [12/50] Fetching ostree chunk c48c0c350e9561e9617 (9.6 MB)...done
+May 29 20:33:31 ip-172-31-16-235 kola-runext-test.sh[2392]: [13/50] Fetching ostree chunk ca13fc5a166665f2845 (6.8 MB)...done
+May 29 20:33:31 ip-172-31-16-235 kola-runext-test.sh[2392]: [14/50] Fetching ostree chunk 66339c5cf69b85fbaa5 (7.3 MB)...done
+May 29 20:33:31 ip-172-31-16-235 kola-runext-test.sh[2392]: [15/50] Fetching ostree chunk 91255502d95454b3a7d (19.2 MB)...done
+May 29 20:33:31 ip-172-31-16-235 kola-runext-test.sh[2392]: [16/50] Fetching ostree chunk 0d4d4cc9fac908c9a64 (6.3 MB)...done
+May 29 20:33:31 ip-172-31-16-235 kola-runext-test.sh[2392]: [17/50] Fetching ostree chunk e9833e51c7ee8f2d896 (6.1 MB)...done
+May 29 20:33:31 ip-172-31-16-235 kola-runext-test.sh[2392]: [18/50] Fetching ostree chunk 39693934244dc5c3798 (4.8 MB)...done
+May 29 20:33:31 ip-172-31-16-235 kola-runext-test.sh[2392]: [19/50] Fetching ostree chunk 13824c2c02202cc6946 (4.4 MB)...done
+May 29 20:33:32 ip-172-31-16-235 kola-runext-test.sh[2392]: [20/50] Fetching ostree chunk 66411b126e97a6940a4 (4.7 MB)...done
+May 29 20:33:32 ip-172-31-16-235 kola-runext-test.sh[2392]: [21/50] Fetching ostree chunk 733c452610920c89b30 (5.1 MB)...done
+May 29 20:33:32 ip-172-31-16-235 kola-runext-test.sh[2392]: [22/50] Fetching ostree chunk c96e7dbb118e05c36d1 (2.3 MB)...done
+May 29 20:33:32 ip-172-31-16-235 kola-runext-test.sh[2392]: [23/50] Fetching ostree chunk 4d07375ed12635351b1 (4.2 MB)...done
+May 29 20:33:32 ip-172-31-16-235 kola-runext-test.sh[2392]: [24/50] Fetching ostree chunk 33da0068d395c390671 (3.8 MB)...done
+May 29 20:33:32 ip-172-31-16-235 kola-runext-test.sh[2392]: [25/50] Fetching ostree chunk e04e33f612ea6bfad22 (3.3 MB)...done
+May 29 20:33:32 ip-172-31-16-235 kola-runext-test.sh[2392]: [26/50] Fetching ostree chunk 5675301f4f76ff66fa7 (3.3 MB)...done
+May 29 20:33:32 ip-172-31-16-235 kola-runext-test.sh[2392]: [27/50] Fetching ostree chunk 1d1455d83e4e05fa78f (2.6 MB)...done
+May 29 20:33:32 ip-172-31-16-235 kola-runext-test.sh[2392]: [28/50] Fetching ostree chunk f953e20d9e661d05665 (2.9 MB)...done
+May 29 20:33:32 ip-172-31-16-235 kola-runext-test.sh[2392]: [29/50] Fetching ostree chunk be177956b3b717f265e (6.1 MB)...done
+May 29 20:33:32 ip-172-31-16-235 kola-runext-test.sh[2392]: [30/50] Fetching ostree chunk 31d337f282ba70d7687 (796.1 kB)...done
+May 29 20:33:32 ip-172-31-16-235 kola-runext-test.sh[2392]: [31/50] Fetching ostree chunk 46863a4603aa5eba446 (542.0 kB)...done
+May 29 20:33:32 ip-172-31-16-235 kola-runext-test.sh[2392]: [32/50] Fetching ostree chunk c78c5756a7d79cfc7c0 (2.7 MB)...done
+May 29 20:33:32 ip-172-31-16-235 kola-runext-test.sh[2392]: [33/50] Fetching ostree chunk 8cdcb6d6778f8adaea4 (1.4 MB)...done
+May 29 20:33:32 ip-172-31-16-235 kola-runext-test.sh[2392]: [34/50] Fetching ostree chunk c835085cec16f2539c2 (1.2 MB)...done
+May 29 20:33:33 ip-172-31-16-235 kola-runext-test.sh[2392]: [35/50] Fetching ostree chunk 605348ed97fd163bb38 (43.0 MB)...done
+May 29 20:33:33 ip-172-31-16-235 kola-runext-test.sh[2392]: [36/50] Fetching ostree chunk 98d57b3a8c259745158 (6.8 MB)...done
+May 29 20:33:33 ip-172-31-16-235 kola-runext-test.sh[2392]: [37/50] Fetching ostree chunk c2f2f5fcdeca1e3b02c (5.4 MB)...done
+May 29 20:33:33 ip-172-31-16-235 kola-runext-test.sh[2392]: [38/50] Fetching ostree chunk da8487756eea7132860 (4.2 MB)...done
+May 29 20:33:33 ip-172-31-16-235 kola-runext-test.sh[2392]: [39/50] Fetching ostree chunk 77444958de3821a907b (3.1 MB)...done
+May 29 20:33:33 ip-172-31-16-235 kola-runext-test.sh[2392]: [40/50] Fetching ostree chunk f079ba32f2746db35c5 (7.3 MB)...done
+May 29 20:33:33 ip-172-31-16-235 kola-runext-test.sh[2392]: [41/50] Fetching ostree chunk 505f327e9e8ad5ceb51 (4.2 MB)...done
+May 29 20:33:33 ip-172-31-16-235 kola-runext-test.sh[2392]: [42/50] Fetching ostree chunk de3e2675abc7aafdf16 (2.8 MB)...done
+May 29 20:33:33 ip-172-31-16-235 kola-runext-test.sh[2392]: [43/50] Fetching ostree chunk 7c168b34c1278c002b2 (1.8 MB)...done
+May 29 20:33:33 ip-172-31-16-235 kola-runext-test.sh[2392]: [44/50] Fetching ostree chunk 25b8a28d81021647da2 (7.1 MB)...done
+May 29 20:33:33 ip-172-31-16-235 kola-runext-test.sh[2392]: [45/50] Fetching ostree chunk d5426c2cf5647cbc451 (4.1 MB)...done
+May 29 20:33:33 ip-172-31-16-235 kola-runext-test.sh[2392]: [46/50] Fetching ostree chunk e09e5419e512b493cd9 (36.6 MB)...done
+May 29 20:33:34 ip-172-31-16-235 kola-runext-test.sh[2392]: [47/50] Fetching ostree chunk ebcd955321dfdabceee (25.9 MB)...done
+May 29 20:33:34 ip-172-31-16-235 kola-runext-test.sh[2392]: [48/50] Fetching ostree chunk 5d6bf52e24a8205a71a (137.3 MB)...done
+May 29 20:33:35 ip-172-31-16-235 kola-runext-test.sh[2392]: [49/50] Fetching ostree chunk 97f8ca83e3e60656d2c (1.8 MB)...done
+May 29 20:33:47 ip-172-31-16-235 kola-runext-test.sh[2392]: Staging deployment...done
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]: Upgraded:
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   NetworkManager 1:1.52.0-7.el9_6 -> 1:1.52.0-9.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   NetworkManager-cloud-setup 1:1.52.0-7.el9_6 -> 1:1.52.0-9.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   NetworkManager-libnm 1:1.52.0-7.el9_6 -> 1:1.52.0-9.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   NetworkManager-team 1:1.52.0-7.el9_6 -> 1:1.52.0-9.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   NetworkManager-tui 1:1.52.0-7.el9_6 -> 1:1.52.0-9.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   WALinuxAgent-udev 2.7.0.6-11.el9_6.1 -> 2.13.1.1-1.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   afterburn 5.7.0-1.el9 -> 5.9.0-1.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   afterburn-dracut 5.7.0-1.el9 -> 5.9.0-1.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   bind-libs 32:9.16.23-31.el9_6 -> 32:9.16.23-31.el9_6.2
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   bind-license 32:9.16.23-31.el9_6 -> 32:9.16.23-31.el9_6.2
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   bind-utils 32:9.16.23-31.el9_6 -> 32:9.16.23-31.el9_6.2
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   binutils 2.35.2-63.el9 -> 2.35.2-63.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   binutils-gold 2.35.2-63.el9 -> 2.35.2-63.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   bootc 1.1.6-3.el9_6 -> 1.1.6-4.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   bootupd 0.2.27-4.el9_6 -> 0.2.27-5.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   ca-certificates 2024.2.69_v8.0.303-91.4.el9_4 -> 2025.2.80_v9.0.305-91.el9
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   cifs-utils 7.1-2.el9 -> 7.2-0.el9_6.2
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   container-selinux 4:2.237.0-2.el9_6 -> 4:2.237.0-5.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   coreos-installer 0.24.0-3.el9_6 -> 0.24.0-6.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   coreos-installer-bootinfra 0.24.0-3.el9_6 -> 0.24.0-6.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   criu 3.19-1.el9 -> 3.19-1.2.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   criu-libs 3.19-1.el9 -> 3.19-1.2.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   crun 1.23.1-2.el9_6 -> 1.26-1.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   curl 7.76.1-31.el9_6.1 -> 7.76.1-31.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   device-mapper-multipath 0.8.7-35.el9_6.1 -> 0.8.7-35.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   device-mapper-multipath-libs 0.8.7-35.el9_6.1 -> 0.8.7-35.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   dracut 057-88.git20250311.el9_6 -> 057-89.git20250311.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   dracut-network 057-88.git20250311.el9_6 -> 057-89.git20250311.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   dracut-squash 057-88.git20250311.el9_6 -> 057-89.git20250311.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   expat 2.5.0-5.el9_6 -> 2.5.0-5.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   firewalld-filesystem 1.3.4-9.el9_5 -> 1.3.4-15.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   glib2 2.68.4-16.el9_6.2 -> 2.68.4-16.el9_6.4
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   glibc 2.34-168.el9_6.23 -> 2.34-168.el9_6.24
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   glibc-common 2.34-168.el9_6.23 -> 2.34-168.el9_6.24
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   glibc-gconv-extra 2.34-168.el9_6.23 -> 2.34-168.el9_6.24
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   glibc-minimal-langpack 2.34-168.el9_6.23 -> 2.34-168.el9_6.24
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   gnupg2 2.3.3-4.el9 -> 2.3.3-4.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   grub2-common 1:2.06-104.el9_6 -> 1:2.06-105.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   grub2-efi-x64 1:2.06-104.el9_6 -> 1:2.06-105.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   grub2-pc 1:2.06-104.el9_6 -> 1:2.06-105.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   grub2-pc-modules 1:2.06-104.el9_6 -> 1:2.06-105.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   grub2-tools 1:2.06-104.el9_6 -> 1:2.06-105.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   grub2-tools-minimal 1:2.06-104.el9_6 -> 1:2.06-105.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   ignition 2.21.0-4.rhaos4.19.el9 -> 2.21.0-6.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   ignition-grub 2.21.0-4.rhaos4.19.el9 -> 2.21.0-6.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   kernel 5.14.0-570.55.1.el9_6 -> 5.14.0-570.104.1.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   kernel-core 5.14.0-570.55.1.el9_6 -> 5.14.0-570.104.1.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   kernel-modules 5.14.0-570.55.1.el9_6 -> 5.14.0-570.104.1.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   kernel-modules-core 5.14.0-570.55.1.el9_6 -> 5.14.0-570.104.1.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   kernel-modules-extra 5.14.0-570.55.1.el9_6 -> 5.14.0-570.104.1.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   kpartx 0.8.7-35.el9_6.1 -> 0.8.7-35.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   libbrotli 1.0.9-7.el9_5 -> 1.0.9-7.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   libcurl 7.76.1-31.el9_6.1 -> 7.76.1-31.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   libibverbs 54.0-1.el9 -> 54.0-2.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   libipa_hbac 2.9.6-4.el9_6.2 -> 2.9.6-4.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   libnfsidmap 1:2.5.4-34.el9 -> 1:2.5.4-34.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   libssh 0.10.4-13.el9 -> 0.10.4-15.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   libssh-config 0.10.4-13.el9 -> 0.10.4-15.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   libsss_certmap 2.9.6-4.el9_6.2 -> 2.9.6-4.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   libsss_idmap 2.9.6-4.el9_6.2 -> 2.9.6-4.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   libsss_nss_idmap 2.9.6-4.el9_6.2 -> 2.9.6-4.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   libsss_sudo 2.9.6-4.el9_6.2 -> 2.9.6-4.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   libxml2 2.9.13-12.el9_6 -> 2.9.13-12.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   linux-firmware 20250812-151.4.el9_6 -> 20251111-151.8.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   linux-firmware-whence 20250812-151.4.el9_6 -> 20251111-151.8.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   mdadm 4.3-4.el9_5 -> 4.3-8.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   microcode_ctl 4:20250211-1.20250512.1.el9_6 -> 4:20250211-1.20260227.1.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   nfs-utils 1:2.5.4-34.el9 -> 1:2.5.4-34.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   nftables 1:1.0.9-3.el9 -> 1:1.0.9-4.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   nmstate 2.2.52-1.el9_6 -> 2.2.57-1.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   nvme-cli 2.11-6.el9_6 -> 2.11-7.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   openssh 8.7p1-45.el9 -> 8.7p1-45.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   openssh-clients 8.7p1-45.el9 -> 8.7p1-45.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   openssh-server 8.7p1-45.el9 -> 8.7p1-45.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   openssl 1:3.2.2-6.el9_5.1 -> 1:3.2.2-7.el9_6.2
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   openssl-libs 1:3.2.2-6.el9_5.1 -> 1:3.2.2-7.el9_6.2
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   ostree 2025.2-2.el9_6 -> 2025.2-4.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   ostree-grub2 2025.2-2.el9_6 -> 2025.2-4.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   ostree-libs 2025.2-2.el9_6 -> 2025.2-4.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   passt 0^20250217.ga1e48a0-10.el9_6 -> 0^20250217.ga1e48a0-13.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   passt-selinux 0^20250217.ga1e48a0-10.el9_6 -> 0^20250217.ga1e48a0-13.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   podman 5:5.4.0-13.el9_6 -> 5:5.4.0-18.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   python-unversioned-command 3.9.21-2.el9_6.2 -> 3.9.21-2.el9_6.4
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   python3 3.9.21-2.el9_6.2 -> 3.9.21-2.el9_6.4
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   python3-libs 3.9.21-2.el9_6.2 -> 3.9.21-2.el9_6.4
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   python3-urllib3 1.26.5-6.el9 -> 1.26.5-6.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   qemu-guest-agent 17:9.1.0-15.el9_6.9 -> 17:9.1.0-15.el9_6.18
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   rdma-core 54.0-1.el9 -> 54.0-2.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   rpm-ostree 2025.6-5.el9_6 -> 2025.6-6.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   rpm-ostree-libs 2025.6-5.el9_6 -> 2025.6-6.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   runc 4:1.2.4-2.el9 -> 4:1.2.9-2.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   selinux-policy 38.1.53-5.el9_6 -> 38.1.53-5.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   selinux-policy-targeted 38.1.53-5.el9_6 -> 38.1.53-5.el9_6.1
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   skopeo 2:1.18.1-2.el9_6 -> 2:1.18.1-3.el9_6
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   sssd 2.9.6-4.el9_6.2 -> 2.9.6-4.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   sssd-ad 2.9.6-4.el9_6.2 -> 2.9.6-4.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   sssd-client 2.9.6-4.el9_6.2 -> 2.9.6-4.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   sssd-common 2.9.6-4.el9_6.2 -> 2.9.6-4.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   sssd-common-pac 2.9.6-4.el9_6.2 -> 2.9.6-4.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   sssd-ipa 2.9.6-4.el9_6.2 -> 2.9.6-4.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   sssd-krb5 2.9.6-4.el9_6.2 -> 2.9.6-4.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   sssd-krb5-common 2.9.6-4.el9_6.2 -> 2.9.6-4.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   sssd-ldap 2.9.6-4.el9_6.2 -> 2.9.6-4.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   sssd-nfs-idmap 2.9.6-4.el9_6.2 -> 2.9.6-4.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   sssd-proxy 2.9.6-4.el9_6.2 -> 2.9.6-4.el9_6.3
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   systemd 252-51.el9_6.2 -> 252-51.el9_6.4
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   systemd-journal-remote 252-51.el9_6.2 -> 252-51.el9_6.4
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   systemd-libs 252-51.el9_6.2 -> 252-51.el9_6.4
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   systemd-pam 252-51.el9_6.2 -> 252-51.el9_6.4
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   systemd-rpm-macros 252-51.el9_6.2 -> 252-51.el9_6.4
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   systemd-udev 252-51.el9_6.2 -> 252-51.el9_6.4
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   tar 2:1.34-7.el9 -> 2:1.34-7.el9_6.2
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   tzdata 2025b-1.el9 -> 2026a-1.el9_0
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]: Removed:
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   ose-aws-ecr-image-credential-provider-4.19.0-202508252101.p2.g425c1c5.assembly.stream.el9.x86_64
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]: Added:
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]:   numad-0.5-37.20150602git.el9.x86_64
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2392]: Changes queued for next boot. Run "systemctl reboot" to start a reboot
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2338]: real        0m35.753s
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2338]: user        0m0.083s
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2338]: sys        0m0.060s
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2338]: + ok 'rpm-ostree rebase completed'
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2338]: + echo ok 'rpm-ostree rebase completed'
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2338]: ok rpm-ostree rebase completed
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2338]: + rm -f /srv/fcos-stable.ociarchive
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2338]: + /tmp/autopkgtest-reboot rebase
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2480]: + /usr/local/bin/kolet reboot-request rebase
+May 29 20:33:49 ip-172-31-16-235 kola-runext-test.sh[2480]: + reboot
+-- Boot 6e0d1927117f4b3e8c04a4b8e7044f1e --
+May 29 20:34:41 ip-172-31-16-235 kola-runext-test.sh[1448]: + . /var/opt/kola/extdata/commonlib.sh
+May 29 20:34:41 ip-172-31-16-235 kola-runext-test.sh[1448]: ++ IFS=' '
+May 29 20:34:41 ip-172-31-16-235 kola-runext-test.sh[1448]: ++ read -r -a cmdline
+May 29 20:34:41 ip-172-31-16-235 kola-runext-test.sh[1448]: + case "${AUTOPKGTEST_REBOOT_MARK:-}" in
+May 29 20:34:41 ip-172-31-16-235 kola-runext-test.sh[1452]: ++ rpm-ostree status --json
+May 29 20:34:41 ip-172-31-16-235 kola-runext-test.sh[1453]: ++ jq -r '.deployments[0].version'
+May 29 20:34:41 ip-172-31-16-235 kola-runext-test.sh[1448]: + new_version=9.6.20260401-0
+May 29 20:34:41 ip-172-31-16-235 kola-runext-test.sh[1465]: ++ cat /srv/pre-rebase-version
+May 29 20:34:41 ip-172-31-16-235 kola-runext-test.sh[1448]: + old_version=9.6.20251015-1
+May 29 20:34:41 ip-172-31-16-235 kola-runext-test.sh[1448]: + echo 'Pre-rebase version: 9.6.20251015-1'
+May 29 20:34:41 ip-172-31-16-235 kola-runext-test.sh[1448]: Pre-rebase version: 9.6.20251015-1
+May 29 20:34:41 ip-172-31-16-235 kola-runext-test.sh[1448]: + echo 'Post-rebase version: 9.6.20260401-0'
+May 29 20:34:41 ip-172-31-16-235 kola-runext-test.sh[1448]: Post-rebase version: 9.6.20260401-0
+May 29 20:34:41 ip-172-31-16-235 kola-runext-test.sh[1448]: + '[' 9.6.20251015-1 == 9.6.20260401-0 ']'
+May 29 20:34:41 ip-172-31-16-235 kola-runext-test.sh[1448]: + ok 'Rebase succeeded: 9.6.20251015-1 -> 9.6.20260401-0'
+May 29 20:34:41 ip-172-31-16-235 kola-runext-test.sh[1448]: + echo ok 'Rebase succeeded: 9.6.20251015-1 -> 9.6.20260401-0'
+May 29 20:34:41 ip-172-31-16-235 kola-runext-test.sh[1448]: ok Rebase succeeded: 9.6.20251015-1 -> 9.6.20260401-0
