@@ -83,11 +83,56 @@ The test was run 3 times per variant (6 total AWS instances), all in parallel.
 [3] Baseline kola total averaged over runs 0 and 2 only (excluding run 1
     which had the SSH flake).
 
+### End-to-End Timing: Rebase Through Boot Into New Deployment
+
+The rpm-ostree rebase command time only tells part of the story. The more
+operationally relevant metric is: how long from starting the rebase until
+the system is booted into the new deployment?
+
+Timestamps are extracted from the systemd journal for each run:
+
+- **Rebase start**: `sudo rpm-ostree rebase` command issued
+- **Rebase cmd done**: `Txn Rebase ... successful` in rpm-ostreed log
+- **New OS booted**: `Startup finished` on the second boot (systemd
+  considers the system ready)
+- **New OS verified**: test script confirms new version via `rpm-ostree status`
+
+#### Per-run detail
+
+| Run | rebase cmd | rebase -> booted | rebase -> verified | reboot overhead |
+|-----|-----------|-----------------|-------------------|----------------|
+| | (start -> txn done) | (start -> boot ready) | (start -> verified) | (txn done -> boot ready) |
+| **baseline-0** | 35.5s | 82.9s | 88.2s | 47.4s |
+| **baseline-1** | 49.7s | 117.6s | 125.3s | 67.9s |
+| **baseline-2** | 46.6s | 97.3s | 104.6s | 50.7s |
+| **fsync-false-0** | 27.8s | 70.2s | 78.9s | 42.4s |
+| **fsync-false-1** | 18.8s | 51.6s | 60.4s | 32.7s |
+| **fsync-false-2** | 24.5s | 61.2s | 69.3s | 36.7s |
+
+#### Averages
+
+| Metric | fsync=true (avg) | fsync=false (avg) | Speedup | Time saved |
+|--------|------------------|-------------------|---------|------------|
+| **rpm-ostree rebase (cmd only)** | **43.9s** | **23.7s** | **1.9x** | **20.2s** |
+| **Rebase -> new OS booted** | **99.3s** | **61.0s** | **1.6x** | **38.3s** |
+| **Rebase -> new OS verified** | **106.0s** | **69.5s** | **1.5x** | **36.5s** |
+| Reboot overhead (txn -> booted) | 55.3s | 37.3s | 1.5x | 18.1s |
+
 ### Analysis
 
-- **rpm-ostree rebase is ~1.9x faster with `fsync=false`**: average 46.1s
-  vs 24.9s, saving ~21 seconds per rebase of 1.3 GB across 50 ostree chunk
+- **rpm-ostree rebase is ~1.9x faster with `fsync=false`**: average 43.9s
+  vs 23.7s, saving ~20 seconds per rebase of 1.3 GB across 50 ostree chunk
   layers.
+
+- **End-to-end (rebase through boot into new deployment) is ~1.6x faster**:
+  average 99.3s vs 61.0s, saving ~38 seconds. The fsync=false benefit
+  carries through to the full rebase-and-reboot cycle.
+
+- **Reboot overhead is also ~1.5x faster with fsync=false** (55.3s vs
+  37.3s). This is likely because the first boot after a rebase involves
+  the system deploying the new ostree checkout. With fsync=true, ostree
+  may be fsyncing during the checkout/deployment finalization that happens
+  at boot, adding latency to the reboot itself.
 
 - **curl download times differ between the two batches** (58s baseline vs
   42s fsync=false). This is unrelated to fsync -- it reflects network
@@ -111,8 +156,9 @@ A preliminary single-run comparison was also done on FCOS (not RHCOS):
 | Metric | fsync=true | fsync=false | Speedup |
 |--------|------------|-------------|---------|
 | skopeo copy | 20.4s | 15.0s | 1.4x |
-| **rpm-ostree rebase** | **61.9s** | **25.9s** | **2.4x** |
-| kola total | 309.4s | 164.1s | 1.9x |
+| rpm-ostree rebase (cmd only) | 61.7s | 25.7s | 2.4x |
+| **Rebase -> new OS booted** | **191.5s** | **78.0s** | **2.5x** |
+| Rebase -> new OS verified | 191.2s | 77.8s | 2.5x |
 
 ## Directory Structure
 
